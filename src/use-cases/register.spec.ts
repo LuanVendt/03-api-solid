@@ -3,7 +3,6 @@ import { RegisterUseCase } from './register'
 import { compare } from 'bcryptjs'
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { UserAlreadyExistsError } from './errors/user-already-exists-error'
-import { string } from 'zod'
 
 describe('Register Use Case', () => {
   it('should be able to register', async () => {
@@ -36,7 +35,7 @@ describe('Register Use Case', () => {
     expect(isPasswordCorrectlyHashed).toBe(true)
   })
 
-  it('should not be able to register wwith same e-mail twice', async () => {
+  it('should not be able to register with same e-mail twice', async () => {
     const usersRepository = new InMemoryUsersRepository()
     const registeruseCase = new RegisterUseCase(usersRepository)
 
@@ -48,7 +47,7 @@ describe('Register Use Case', () => {
       password: '123456',
     })
 
-    expect(() =>
+    await expect(() =>
       registeruseCase.execute({
         name: 'John Doe',
         email,
