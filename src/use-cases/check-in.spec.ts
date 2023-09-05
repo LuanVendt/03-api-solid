@@ -93,13 +93,13 @@ describe('Check-in Use Case', () => {
       longitude: new Decimal(-49.4889672),
     })
 
-    const { checkIn } = await sut.execute({
-      gymId: 'gym-01',
-      userId: 'user-01',
-      userLatitude: -27.2892052,
-      userLongitude: -49.6481891,
-    })
-
-    expect(checkIn.id).toEqual(expect.any(String))
+    await expect(() =>
+      sut.execute({
+        gymId: 'gym-01',
+        userId: 'user-01',
+        userLatitude: -27.2892852,
+        userLongitude: -49.6481891,
+      }),
+    ).rejects.toBeInstanceOf(Error)
   })
 })
