@@ -6,6 +6,16 @@ import dayjs from 'dayjs'
 export class InMemoryCheckInsRepository implements CheckInsRepository {
   public itens: CheckIn[] = []
 
+  findById(id: string): Promise<CheckIn | null> {
+    const checkIn = this.itens.find((item) => item.id === id)
+
+    if (!checkIn) {
+      return Promise.resolve(null)
+    }
+
+    return Promise.resolve(checkIn)
+  }
+
   async findByUserIdByDate(userId: string, date: Date) {
     const startOfTheDay = dayjs(date).startOf('date')
     const endOfTheDay = dayjs(date).endOf('date')
@@ -45,6 +55,16 @@ export class InMemoryCheckInsRepository implements CheckInsRepository {
     }
 
     this.itens.push(checkIn)
+
+    return checkIn
+  }
+
+  async save(checkIn: CheckIn) {
+    const checkInIndex = this.itens.findIndex((item) => item.id === checkIn.id)
+
+    if (checkInIndex >= 0) {
+      this.itens[checkInIndex] = checkIn
+    }
 
     return checkIn
   }
