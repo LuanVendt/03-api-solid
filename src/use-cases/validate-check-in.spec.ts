@@ -1,7 +1,7 @@
-import { expect, describe, it, beforeEach, afterEach } from 'vitest'
 import { InMemoryCheckInsRepository } from '@/repositories/in-memory/in-memory-check-ins-repository'
-import { ValidateCheckInUseCase } from './validate-check-in'
+import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { ResourceNotFoundError } from './errors/resouce-not-found-error'
+import { ValidateCheckInUseCase } from './validate-check-in'
 
 let checkInsRepository: InMemoryCheckInsRepository
 let sut: ValidateCheckInUseCase
@@ -23,7 +23,9 @@ describe('Validate Check-in Use Case', () => {
       gym_id: 'gym-01',
       user_id: 'user-01',
     })
+
     console.log(createdCheckIn)
+
     const { checkIn } = await sut.execute({
       checkInId: createdCheckIn.id,
     })
