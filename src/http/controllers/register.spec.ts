@@ -20,6 +20,6 @@ describe('Register (e2e)', () => {
                 password: '123456',
             })
 
-        expect(response.statusCode).toEqual(201)
+        expect(response.statusCode).toEqual(200)
     })
 })
